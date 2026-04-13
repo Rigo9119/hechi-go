@@ -1,0 +1,29 @@
+# Binarios compilados
+finanzas-app
+*.exe
+*.test
+*.out
+
+# PocketBase data — NUNCA commitear esto
+pb_data/
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+
+# Variables de entorno
+.env
+.env.local
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
