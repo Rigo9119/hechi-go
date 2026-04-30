@@ -1,4 +1,4 @@
-.PHONY: generate build run migrate-up migrate-down tidy
+.PHONY: generate build run tidy db-up db-down db-logs migrate-up migrate-down
 
 generate:
 	go run github.com/99designs/gqlgen generate
@@ -12,8 +12,19 @@ run:
 tidy:
 	go mod tidy
 
-migrate-up:
-	psql "$(DATABASE_URL)" -f migrations/001_initial.up.sql
+db-up:
+	docker compose up -d db
+
+db-down:
+	docker compose down
+
+db-logs:
+	docker compose logs -f db
+
+migrate-up: db-up
+	@echo "Waiting for database to be ready..."
+	@docker compose exec db sh -c 'until pg_isready -U hechi -d hechi; do sleep 1; done'
+	psql "postgres://hechi:hechi@localhost:5432/hechi?sslmode=disable" -f migrations/001_initial.up.sql
 
 migrate-down:
-	psql "$(DATABASE_URL)" -f migrations/001_initial.down.sql
+	psql "postgres://hechi:hechi@localhost:5432/hechi?sslmode=disable" -f migrations/001_initial.down.sql
