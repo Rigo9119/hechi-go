@@ -1,17 +1,11 @@
-# Binarios compilados
-finanzas-app
+# Compiled binaries
+bin/
+hechi-go
 *.exe
 *.test
 *.out
 
-# PocketBase data — NUNCA commitear esto
-pb_data/
-*.db
-*.db-journal
-*.db-shm
-*.db-wal
-
-# Variables de entorno
+# Environment
 .env
 .env.local
 
